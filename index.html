@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>STUDIO MOMENTUM | 고단가 전문직·B2B 올인원 토킹헤드 프로덕션</title>
   <meta name="description" content="대표님은 30분만 읽으세요. 장문 심리 대본 기획부터 1:1 촬영 디렉팅, 데이터 인포그래픽 모션그래픽까지 완제품 턴키 제작.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -33,13 +33,13 @@
       --radius-md: 10px;
     }
 
-    /* 좌우 스크롤 100% 원천 차단 (위아래 스크롤만 허용) */
+    /* 좌우 스크롤 100% 원천 차단 + 핀치 줌(확대/축소) 허용 */
     html, body {
       width: 100%;
       max-width: 100vw;
       overflow-x: hidden !important;
       position: relative;
-      touch-action: pan-y;
+      touch-action: pan-y pinch-zoom;
       overscroll-behavior-x: none;
       -webkit-overflow-scrolling: touch;
     }
@@ -52,9 +52,18 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* 이미지 불펌·스크랩 원천 차단 */
     img, video, canvas, svg {
       max-width: 100%;
       height: auto;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+      -webkit-touch-callout: none !important;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     body {
@@ -298,6 +307,26 @@
       justify-content: center;
       border-right: 1px solid var(--surface-border);
       overflow: hidden;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none !important;
+    }
+
+    /* 이미지 불펌·스크랩 방지 투명 가드 실드 (우클릭/롱프레스 원천 방어) */
+    .proof-card-horizontal .proof-img-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      z-index: 10;
+      pointer-events: auto;
+      -webkit-touch-callout: none !important;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .proof-card-horizontal .proof-img-wrap img {
@@ -306,6 +335,12 @@
       object-fit: cover;
       object-position: center;
       display: block;
+      pointer-events: none;
+      -webkit-touch-callout: none !important;
+      -webkit-user-drag: none;
+      user-drag: none;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .proof-content {
@@ -799,7 +834,7 @@
       <!-- Proof 1: Zero to One New Channel Launch (1,560 views) -->
       <div class="proof-card-horizontal">
         <div class="proof-img-wrap">
-          <img src="proof_newchannel_1500.jpg?v=4" alt="신규 채널 첫 롱폼 1560회 달성 스튜디오 분석 화면" loading="lazy">
+          <img src="proof_newchannel_1500.jpg?v=5" alt="신규 채널 첫 롱폼 1560회 달성 스튜디오 분석 화면" loading="lazy" draggable="false" oncontextmenu="return false;">
         </div>
         <div class="proof-content">
           <span class="proof-tag">01. 신규 채널 런칭 안착</span>
@@ -814,7 +849,7 @@
       <!-- Proof 2: YouTube 7,800 views / 97.1% Browse Scale-up -->
       <div class="proof-card-horizontal">
         <div class="proof-img-wrap">
-          <img src="proof_youtube_7800.jpg?v=4" alt="유튜브 알고리즘 탐색 97.1% 달성 분석 화면" loading="lazy">
+          <img src="proof_youtube_7800.jpg?v=5" alt="유튜브 알고리즘 탐색 97.1% 달성 분석 화면" loading="lazy" draggable="false" oncontextmenu="return false;">
         </div>
         <div class="proof-content">
           <span class="proof-tag blue">02. 롱폼 알고리즘 스케일업</span>
@@ -829,7 +864,7 @@
       <!-- Proof 3: Instagram 2.68M views (Pure Reels Grid with Heavy Mosaic) -->
       <div class="proof-card-horizontal">
         <div class="proof-img-wrap">
-          <img src="proof_insta_268m.jpg?v=5" alt="인스타그램 268만 조회수 릴스 탭 증빙" loading="lazy" style="object-position: center 60%;">
+          <img src="proof_insta_268m.jpg?v=5" alt="인스타그램 268만 조회수 릴스 탭 증빙" loading="lazy" draggable="false" oncontextmenu="return false;" style="object-position: center 60%;">
         </div>
         <div class="proof-content">
           <span class="proof-tag purple">03. 숏폼 바이럴 시너지</span>
@@ -1021,6 +1056,42 @@
     1:1 빠른 문의하기
   </a>
 </div>
+
+<!-- 이미지 불펌 / 스크랩 / 우클릭 / 드래그 원천 차단 스크립트 -->
+<script>
+  (function() {
+    // 1. 이미지 및 증빙 카드 영역 우클릭 메뉴 차단
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.closest('.proof-card-horizontal') || e.target.closest('.proof-img-wrap')) {
+        e.preventDefault();
+        return false;
+      }
+    }, { capture: true });
+
+    // 2. 이미지 드래그 앤 드롭 복사 차단
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.closest('.proof-img-wrap')) {
+        e.preventDefault();
+        return false;
+      }
+    }, { capture: true });
+
+    // 3. 브라우저 저장 단축키 (Cmd+S, Ctrl+S) 방지
+    window.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+      }
+    });
+
+    // 4. 모바일 롱프레스 터치 콜아웃 원천 차단
+    document.addEventListener('touchstart', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.closest('.proof-img-wrap')) {
+        e.target.style.webkitTouchCallout = 'none';
+        e.target.style.webkitUserSelect = 'none';
+      }
+    }, { passive: true });
+  })();
+</script>
 
 </body>
 </html>
