@@ -669,43 +669,49 @@
       word-break: keep-all;
     }
 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      max-width: 560px;
+    .contact-wrap {
+      max-width: 480px;
       margin: 0 auto;
       width: 100%;
     }
 
     .contact-card-btn {
-      background: #131b2e;
-      border: 1px solid var(--surface-border);
+      background: linear-gradient(135deg, #131b2e 0%, #0d1527 100%);
+      border: 1px solid rgba(59, 130, 246, 0.4);
       border-radius: var(--radius-md);
-      padding: 16px;
+      padding: 18px 24px;
       text-decoration: none;
       color: #fff;
-      text-align: left;
+      text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      align-items: center;
+      gap: 6px;
       box-sizing: border-box;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .contact-card-btn:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 6px 24px rgba(56, 189, 248, 0.25);
+      transform: translateY(-2px);
     }
 
     .contact-tag {
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 700;
       color: #38bdf8;
     }
 
     .contact-main-text {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
     }
 
     .contact-sub-text {
-      font-size: 11.5px;
-      color: var(--text-muted);
+      font-size: 12px;
+      color: var(--text-sub);
     }
 
     /* Footer Meta */
@@ -786,7 +792,7 @@
       .comp-table th, .comp-table td { padding: 10px 7px; }
       .pricing-grid-3 { grid-template-columns: 1fr; gap: 12px; }
       .steps-grid { grid-template-columns: 1fr; gap: 8px; }
-      .contact-grid { grid-template-columns: 1fr; }
+      .contact-wrap { width: 100%; }
       .apply-card { padding: 24px 14px; }
       .apply-card h3 { font-size: 20px; }
       .sticky-bar { padding: 10px 14px; }
@@ -1041,17 +1047,11 @@
       <h3>동시에 최대 2개 기업·전문직만 한정 수주합니다.</h3>
       <p>단순 영상 제작이 아니라, 대표님의 전문성을 실제 고객 문의와 브랜드 자산으로 전환시켜 드립니다.</p>
 
-      <div class="contact-grid">
+      <div class="contact-wrap">
         <a href="https://open.kakao.com/o/sEX8RWNi" target="_blank" class="contact-card-btn" id="kakaoBtn">
-          <span class="contact-tag">⚡ 가장 빠른 실시간 상담</span>
-          <span class="contact-main-text">카카오톡 1:1 상담하기</span>
-          <span class="contact-sub-text">채널 진단 및 첫 편(50만 원) 일정 조율</span>
-        </a>
-
-        <a href="tel:010-0000-0000" class="contact-card-btn" id="telBtn">
-          <span class="contact-tag">📞 다이렉트 유선 문의</span>
-          <span class="contact-main-text">총괄 PD 직통 전화</span>
-          <span class="contact-sub-text">평일 10:00 ~ 19:00 대응</span>
+          <span class="contact-tag">⚡ 1:1 비공개 실시간 상담 (100% 익명 가능)</span>
+          <span class="contact-main-text" style="font-size: 16.5px;">카카오톡 1:1 오픈채팅으로 상담하기</span>
+          <span class="contact-sub-text">채널 분석 무료 진단 및 첫 편(50만 원) 일정 조율</span>
         </a>
       </div>
     </div>
